@@ -1,5 +1,14 @@
 import API from '../api/api';
-import { LOGIN_USER, LOGOUT_USER } from './types';
+import { SET_USERNAME, LOGOUT_USER, SET_TOKEN } from './types';
+
+const getUsername = (headers, dispatch) => {
+  API.get('users/current', { headers: headers }).then(res => {
+    dispatch({
+      type: SET_USERNAME,
+      payload: res.data.username
+    });
+  });
+};
 
 export const loginUser = user => dispatch => {
   const dispatchPayload = {};
@@ -9,18 +18,13 @@ export const loginUser = user => dispatch => {
     .then(res => {
       dispatchPayload.token = res.data.token;
       headers.Authorization = `token ${dispatchPayload.token}`;
+      dispatch({
+        type: SET_TOKEN,
+        payload: res.data.token
+      });
+      getUsername(headers, dispatch);
     })
     .catch(err => console.log(err));
-
-  API.get('users/current', { headers: headers }).then(res => {
-    dispatchPayload.username = res.data;
-    console.log(headers);
-    dispatch({
-      type: LOGIN_USER,
-      payload: dispatchPayload.token,
-      payload2: dispatchPayload.username
-    });
-  });
 };
 
 export const logoutUser = () => dispatch => {
