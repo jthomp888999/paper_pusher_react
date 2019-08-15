@@ -13,7 +13,7 @@ class Navigation extends Component {
           <Link to="/login">Login</Link>
         </Menu.Item>
         <Menu.Item key="3" style={{ float: 'right' }}>
-          <li>Logout</li>
+          <Link to="#">Logout</Link>
         </Menu.Item>
       </Menu>
     );
