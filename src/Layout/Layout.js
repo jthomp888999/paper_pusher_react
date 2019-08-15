@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import 'antd/dist/antd.css';
 import { Layout } from 'antd';
+
+import Navigation from './Navigation/Navigation';
+import SideNav from './Sider/SideNav';
 
 const { Header, Content, Sider } = Layout;
 class AppLayout extends Component {
@@ -7,12 +11,12 @@ class AppLayout extends Component {
     return (
       <Layout>
         <Header className="header">
-          <h1>NavBar</h1>
+          <Navigation />
         </Header>
         <Content>
           <Layout style={{ background: '#fff' }}>
-            <Sider width={200} style={{ background: '#fff' }}>
-              <h1>Tree</h1>
+            <Sider width={200} style={{ background: '#fff', padding: '24px' }}>
+              <SideNav />
             </Sider>
             <Content style={{ padding: '24px', minHeight: 280 }}>
               <h1>Content</h1>
