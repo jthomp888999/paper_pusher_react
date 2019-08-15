@@ -19,7 +19,7 @@ class AppLayout extends Component {
               <SideNav />
             </Sider>
             <Content style={{ padding: '24px', minHeight: 280 }}>
-              <h1>Content</h1>
+              {this.props.children}
             </Content>
           </Layout>
         </Content>
