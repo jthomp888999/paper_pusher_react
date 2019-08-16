@@ -1,4 +1,4 @@
-import API from '../api/api';
+import API from '../../api/api';
 import { SET_USERNAME, LOGOUT_USER, SET_TOKEN } from './types';
 
 const getUsername = (dispatch) => {
