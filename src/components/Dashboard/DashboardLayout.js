@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import Cabinets from '../Dashboard/DashComponents/Cabinets';
 
 const { Content, Sider, Footer } = Layout
 
@@ -9,12 +10,12 @@ class DashboardLayout extends Component {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider style={{ backgroundColor: "#fff", position: "fixed"}}>
-          <h1>My Sider</h1>
+          <Cabinets />
         </Sider>
         <Layout>
           <Content style={{ backgroundColor: "#fff" }}>
             <div style={{ minHeight: 360, textAlign: "center" }}>
-              Bill is a cat.
+              {this.props.children}
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}><hr />Designed with Ant Design <br /> Powered by Mayan EDMS</Footer>
