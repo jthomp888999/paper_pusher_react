@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import Navigation from './Navigation/Navigation';
 
 const { Header, Content } = Layout;
+
 class AppLayout extends Component {
   render() {
     return (
@@ -14,7 +15,7 @@ class AppLayout extends Component {
         </Header>
         <Content>
           <Layout style={{ background: '#fff' }}>
-            <Content style={{ padding: '24px', minHeight: 280 }}>
+            <Content style={{ minHeight: 280 }}>
               {this.props.children}
             </Content>
           </Layout>

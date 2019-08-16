@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import DashboardLayout from './DashboardLayout';
 
 class Dashboard extends Component {
   render() {
     return (
-      <div>
+      <DashboardLayout>
         <h1>Dashboard</h1>
-      </div>
+      </DashboardLayout>
     );
   }
 }
