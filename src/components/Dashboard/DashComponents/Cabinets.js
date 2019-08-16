@@ -44,7 +44,6 @@ class Cabinets extends Component {
         return cleanCabinets;
       });
     }
-    console.log(cleanCabinets);
 
     const renderTreeNodes = data =>
       data.map(item => {

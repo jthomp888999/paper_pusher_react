@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import { Layout } from 'antd';
-import Cabinets from '../Dashboard/DashComponents/Cabinets';
+import React, { Component } from "react";
+import { Layout } from "antd";
+import Cabinets from "../Dashboard/DashComponents/Cabinets";
 
-const { Content, Sider, Footer } = Layout
+const { Content, Sider, Footer } = Layout;
 
 class DashboardLayout extends Component {
-
   render() {
     return (
-      <Layout style={{ minHeight: '100vh' }}>
-        <Sider style={{ backgroundColor: "#fff", position: "fixed"}}>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider style={{ backgroundColor: "#fff", position: "fixed" }}>
           <Cabinets />
         </Sider>
         <Layout>
@@ -18,7 +17,9 @@ class DashboardLayout extends Component {
               {this.props.children}
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}><hr />Designed with Ant Design <br /> Powered by Mayan EDMS</Footer>
+          <Footer style={{ textAlign: "center" }}>
+            Designed with Ant Design <br /> Powered by Mayan EDMS
+          </Footer>
         </Layout>
       </Layout>
     );

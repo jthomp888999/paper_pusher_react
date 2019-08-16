@@ -8,14 +8,15 @@ const { SubMenu } = Menu;
 class Navigation extends Component {
   render() {
     const authLinks = (
-      <React.Fragment>
+      <>
         <Menu.Item>
           <Link to="#">Username: {this.props.username}</Link>
         </Menu.Item>
+        <Menu.Divider style={{ padding: "12px" }} />
         <Menu.Item key="2">
           <Link to="/logout">Log Out</Link>
         </Menu.Item>
-      </React.Fragment>
+      </>
     );
 
     const noAuthLinks = (
@@ -41,10 +42,9 @@ class Navigation extends Component {
           }
           style={{ float: "right" }}
         >
-          <Menu.ItemGroup />
-          <Menu.Item>
+          <Menu.ItemGroup>
             {this.props.isAuthenticated ? authLinks : noAuthLinks}
-          </Menu.Item>
+          </Menu.ItemGroup>
         </SubMenu>
       </Menu>
     );
