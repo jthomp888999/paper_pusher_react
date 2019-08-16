@@ -23,7 +23,7 @@ class Navigation extends Component {
     )
 
     return (
-      <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
+      <Menu mode="horizontal" theme="light" style={{ lineHeight: '64px' }}>
         <Menu.Item key="1" style={{ float: "left" }}>
           <Link to="/">
             paper_pusher 
