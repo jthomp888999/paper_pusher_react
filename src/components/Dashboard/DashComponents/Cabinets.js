@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Tree } from 'antd';
-import { connect } from 'react-redux';
-import API from '../../../api/api';
+import React, { Component } from "react";
+import { Tree } from "antd";
+import { connect } from "react-redux";
+import API from "../../../api/api";
 
 const { TreeNode } = Tree;
 
@@ -20,10 +20,10 @@ class Cabinets extends Component {
     const token = this.props.auth.token;
 
     const headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `token ${token}`
     };
-    API.get(`/cabinets`, {
+    API.get(`/cabinets/cabinets/`, {
       headers: headers
     }).then(res => {
       this.setState({ cabinets: res.data.results });
@@ -44,6 +44,7 @@ class Cabinets extends Component {
         return cleanCabinets;
       });
     }
+    console.log(cleanCabinets);
 
     const renderTreeNodes = data =>
       data.map(item => {
