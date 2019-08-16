@@ -18,7 +18,7 @@ class Login extends Component {
   };
 
   render() {
-    if (this.props.isAuthorized) {
+    if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
     }
     const { getFieldDecorator } = this.props.form;
@@ -28,15 +28,7 @@ class Login extends Component {
           style={{ width: 300 }}
           title={'Login'}
           extra={<Icon type="unlock" />}
-          actions={[
-            <Button
-              onClick={this.handleSubmit}
-              type="primary"
-              htmlType="submit"
-              className="login-form-button">
-              Log in
-            </Button>
-          ]}>
+          >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               {getFieldDecorator('username', {
@@ -67,6 +59,13 @@ class Login extends Component {
                 />
               )}
             </Form.Item>
+            <Button
+              onClick={this.handleSubmit}
+              type="primary"
+              htmlType="submit"
+              className="login-form-button">
+              Log in
+            </Button>
           </Form>
         </Card>
       </Row>
