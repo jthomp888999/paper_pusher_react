@@ -10,12 +10,12 @@ class AppLayout extends Component {
   render() {
     return (
       <Layout>
-        <Header className="header" style={{backgroundColor: "#fff" }}>
+        <Header className="header" style={{ backgroundColor: '#F0F2F5' }}>
           <Navigation />
         </Header>
         <Content>
           <Layout style={{ background: '#fff' }}>
-            <Content style={{ minHeight: 280, backgroundColor: "#fff" }}>
+            <Content style={{ minHeight: 280, backgroundColor: '#fff' }}>
               {this.props.children}
             </Content>
           </Layout>

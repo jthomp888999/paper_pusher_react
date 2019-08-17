@@ -1,22 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Menu, Icon } from "antd";
-import { Link } from "react-router-dom";
-
-const { SubMenu } = Menu;
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
 class Navigation extends Component {
   render() {
+    const { isAuthenticated } = this.props;
     const authLinks = (
-      <>
-        <Menu.Item>
-          <Link to="#">Username: {this.props.username}</Link>
-        </Menu.Item>
-        <Menu.Divider style={{ padding: "12px" }} />
-        <Menu.Item key="2">
-          <Link to="/logout">Log Out</Link>
-        </Menu.Item>
-      </>
+      <Menu.Item key="2">
+        <Link to="/logout">Log Out</Link>
+      </Menu.Item>
     );
 
     const noAuthLinks = (
@@ -26,26 +19,19 @@ class Navigation extends Component {
     );
 
     return (
-      <Menu mode="horizontal" theme="light" style={{ lineHeight: "64px" }}>
-        <Menu.Item key="1" style={{ float: "left" }}>
+      <Menu
+        mode="horizontal"
+        theme="light"
+        style={{ lineHeight: '64px', backgroundColor: '#F0F2F5' }}>
+        <Menu.Item key="1" style={{ float: 'left' }}>
           <Link to="/">
             paper_pusher
             {<Icon type="paper-clip" />}
           </Link>
         </Menu.Item>
-        <SubMenu
-          title={
-            <span>
-              <Icon type="user" />
-              Accounts
-            </span>
-          }
-          style={{ float: "right" }}
-        >
-          <Menu.ItemGroup>
-            {this.props.isAuthenticated ? authLinks : noAuthLinks}
-          </Menu.ItemGroup>
-        </SubMenu>
+        <Menu.Item style={{ float: 'right' }}>
+          {isAuthenticated ? authLinks : noAuthLinks}
+        </Menu.Item>
       </Menu>
     );
   }
