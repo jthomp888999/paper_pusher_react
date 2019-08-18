@@ -31,9 +31,15 @@ class Cabinets extends Component {
     });
   }
 
+  onSelect = (selectedKeys, info) => {
+    // Catching the id of the cabinet contents to load
+    console.log('selected', info.selectedNodes[0].props.id);
+  }
+
   render() {
     const cabinets = this.state.cabinets;
     let cleanCabinets = [];
+
 
     //Must actually clean the data from the server to be actually nested
     if (!this.state.isLoading) {
@@ -45,21 +51,21 @@ class Cabinets extends Component {
       });
     }
 
-    const renderTreeNodes = data =>
+    const renderTreeNodes = data => 
       data.map(item => {
         if (item.children) {
           return (
-            <TreeNode title={item.label} key={item.id}>
+            <TreeNode title={item.label} key={item.id} id={item.id}>
               {renderTreeNodes(item.children)}
             </TreeNode>
           );
         }
-        return <TreeNode item={item.label} {...item} key={item.id} />;
+        return <TreeNode item={item.label} {...item} key={item.id} id={item.id}/>;
       });
 
     return (
       <div>
-        <Tree showLine>{renderTreeNodes(cleanCabinets)}</Tree>
+        <Tree showLine onSelect={this.onSelect}>{renderTreeNodes(cleanCabinets)}</Tree>
       </div>
     );
   }
