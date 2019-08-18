@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Menu, Icon } from 'antd';
+import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
 class Navigation extends Component {
@@ -23,10 +23,9 @@ class Navigation extends Component {
         mode="horizontal"
         theme="light"
         style={{ lineHeight: '64px', backgroundColor: '#F0F2F5' }}>
-        <Menu.Item key="1" style={{ float: 'left' }}>
+        <Menu.Item key="1" style={{ float: 'left', fontSize: "24px" }}>
           <Link to="/">
             paper_pusher
-            {<Icon type="paper-clip" />}
           </Link>
         </Menu.Item>
         <Menu.Item style={{ float: 'right' }}>
