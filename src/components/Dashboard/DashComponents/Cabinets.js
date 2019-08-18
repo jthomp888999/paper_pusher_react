@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Tree } from "antd";
-import { connect } from "react-redux";
-import API from "../../../api/api";
+import React, { Component } from 'react';
+import { Tree } from 'antd';
+import { connect } from 'react-redux';
+import API from '../../../api/api';
 
 const { TreeNode } = Tree;
 
@@ -20,7 +20,7 @@ class Cabinets extends Component {
     const token = this.props.auth.token;
 
     const headers = {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `token ${token}`
     };
     API.get(`/cabinets/cabinets/`, {
@@ -34,12 +34,11 @@ class Cabinets extends Component {
   onSelect = (selectedKeys, info) => {
     // Catching the id of the cabinet contents to load
     console.log('selected', info.selectedNodes[0].props.id);
-  }
+  };
 
   render() {
     const cabinets = this.state.cabinets;
     let cleanCabinets = [];
-
 
     //Must actually clean the data from the server to be actually nested
     if (!this.state.isLoading) {
@@ -51,7 +50,7 @@ class Cabinets extends Component {
       });
     }
 
-    const renderTreeNodes = data => 
+    const renderTreeNodes = data =>
       data.map(item => {
         if (item.children) {
           return (
@@ -60,12 +59,16 @@ class Cabinets extends Component {
             </TreeNode>
           );
         }
-        return <TreeNode item={item.label} {...item} key={item.id} id={item.id}/>;
+        return (
+          <TreeNode item={item.label} {...item} key={item.id} id={item.id} />
+        );
       });
 
     return (
       <div>
-        <Tree showLine onSelect={this.onSelect}>{renderTreeNodes(cleanCabinets)}</Tree>
+        <Tree showLine onSelect={this.onSelect}>
+          {renderTreeNodes(cleanCabinets)}
+        </Tree>
       </div>
     );
   }
