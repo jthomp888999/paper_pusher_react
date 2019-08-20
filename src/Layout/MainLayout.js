@@ -25,9 +25,17 @@ class MainLayout extends Component {
             >
               <CabinetTree />
             </Sider>
-            <Content style={{ padding: "0 24px", minHeight: 280 }}>
+            <Content style={{ padding: "0 24px", minHeight: 280, textAlign: "center" }}>
               {this.props.children}
             </Content>
+            <Sider
+              width={280}
+              style={{
+                background: "#fff",
+                border: "solid #F0F2F5 1px",
+                minHeight: "800px"
+              }}
+            />
           </Layout>
         </Content>
         <Footer style={{ textAlign: "center" }}>
