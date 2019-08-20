@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Tree } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {API} from "../../../api/api";
+import API from "../../../api/api";
 
 const { TreeNode } = Tree;
 
@@ -12,7 +12,6 @@ class Cabinets extends Component {
     this.state = {
       cabinets: [],
       isLoading: true,
-      cabinetContents: []
     };
   }
 
@@ -34,23 +33,10 @@ class Cabinets extends Component {
   }
 
   onSelect = (selectedKeys, info) => {
-    const token = this.props.auth.token;
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `token ${token}`
-    };
   try {
-    API.get(`/cabinets/cabinets/${info.selectedNodes[0].props.id}/documents`, {
-      headers: headers
-    }).then(res => {
-      this.setState({ cabinetContents: res.data.results });
       this.props.history.push({
-        pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
-        state: {cabinetContents: res.data.results}
+        pathname: `/cabinets/${info.selectedNodes[0].props.id}`
       })
-    });
-
     }
     catch {
       this.props.history.push('/')
