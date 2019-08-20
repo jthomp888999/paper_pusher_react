@@ -35,7 +35,7 @@ class Cabinets extends Component {
   onSelect = (selectedKeys, info) => {
     // Catching the id of the cabinet contents to load
     console.log("selected", info.selectedNodes[0].props.id);
-    history.push("/cabinets/${info.selectedNodes[0].props.id}");
+    this.props.history.push(`/cabinets/${info.selectedNodes[0].props.id}`);
   };
 
   render() {
@@ -80,4 +80,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(withRouter(Cabinets));
+export default withRouter(connect(mapStateToProps)(Cabinets));
