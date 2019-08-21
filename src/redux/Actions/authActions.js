@@ -1,8 +1,9 @@
-import API from "../../api/api";
+import { tokenObtain, currentUser } from "../../api/api";
 import { SET_USERNAME, LOGOUT_USER, SET_TOKEN } from "./types";
 
 const getUsername = dispatch => {
-  API.get("user_management/users/current/").then(res => {
+  console.log('geting username')
+  currentUser().then(res => {
     dispatch({
       type: SET_USERNAME,
       payload: res.data.username
@@ -11,22 +12,13 @@ const getUsername = dispatch => {
 };
 
 export const loginUser = user => dispatch => {
-  const dispatchPayload = {};
-  API.post("/rest/auth/token/obtain/", user)
-    .then(res => {
-      dispatchPayload.token = res.data.token;
-      API.defaults.headers.common["Authorization"] = `token ${
-        // Set default header once token comes back
-        dispatchPayload.token
-      }`;
-      API.defaults.headers.common["Content-Type"] = "application/json";
-      dispatch({
-        type: SET_TOKEN,
-        payload: res.data.token
-      });
-      getUsername(dispatch);
-    })
-    .catch(err => console.log(err));
+  tokenObtain(user).then(res => {
+    dispatch({
+      type: SET_TOKEN,
+      payload: res.data.token
+    });
+    getUsername(dispatch);
+    }).catch(err => console.log(err));
 };
 
 export const logoutUser = () => dispatch => {
