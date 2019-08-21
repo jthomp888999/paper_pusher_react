@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { allReducers } from '../Reducers/';
-import { loadState, saveState }  from './localStorage';
+import { loadState, saveState } from './localStorage';
 
-const persistedState = loadState()
+const persistedState = loadState();
 
 const myMiddleware = [thunk];
 
