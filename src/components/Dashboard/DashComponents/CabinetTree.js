@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import { Tree } from "antd";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { cabinetObj, docsInCabinet } from '../../../api/api';
-import { setCabinetID } from '../../../redux/Actions/cabinetActions';
+import React, { Component } from 'react';
+import { Tree } from 'antd';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { cabinetObj } from '../../../api/api';
+import {
+  setCabinetID,
+  setCabinetObj
+} from '../../../redux/Actions/cabinetActions';
 
 const { TreeNode } = Tree;
 
@@ -17,8 +20,8 @@ class Cabinets extends Component {
     };
   }
 
-  componentDidMount() {
-    cabinetObj().then(res => {
+  async componentDidMount() {
+    await cabinetObj().then(res => {
       this.setState({ cabinets: res.data.results });
       this.setState({ isLoading: false });
     });
@@ -26,34 +29,30 @@ class Cabinets extends Component {
 
   onSelect = (selectedKeys, info) => {
     try {
-      docsInCabinet(info.selectedNodes[0].props.id).then(res => {
-        this.setState({
-          cabinetContents: res.data.results
-        })
-      })
-      this.props.dispatch(setCabinetID(info.selectedNodes[0].props.id))
+      this.props.dispatch(setCabinetID(info.selectedNodes[0].props.id));
       this.props.history.push({
         pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
         state: this.state.cabinetContents
-      })
-    }
-    catch {
-      this.props.history.push('/')
+      });
+    } catch {
+      this.props.history.push('/');
     }
   };
 
   render() {
-    const cabinets = this.state.cabinets;
+    const { cabinets, isLoading } = this.state;
+
     let cleanCabinets = [];
 
     //Must actually clean the data from the server to be actually nested
-    if (!this.state.isLoading) {
+    if (!isLoading) {
       cabinets.map(item => {
         if (item.children.length && item.parent === null) {
           return cleanCabinets.push(item);
         }
         return cleanCabinets;
       });
+      this.props.dispatch(setCabinetObj(cleanCabinets));
     }
 
     const renderTreeNodes = data =>
