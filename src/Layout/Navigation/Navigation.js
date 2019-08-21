@@ -21,8 +21,8 @@ class Navigation extends Component {
     return (
       <Menu
         mode="horizontal"
-        theme="light"
-        style={{ lineHeight: '64px', backgroundColor: '#F0F2F5' }}>
+        theme="dark"
+        style={{ lineHeight: '64px' }}>
         <Menu.Item key="1" style={{ float: 'left', fontSize: "24px" }}>
           <Link to="/">
             paper_pusher

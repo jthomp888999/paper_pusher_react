@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Tree } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import API from "../../../api/api";
+import { cabinetObj, docsInCabinet } from '../../../api/api';
+import { setCabinetID } from '../../../redux/Actions/cabinetActions';
 
 const { TreeNode } = Tree;
 
@@ -11,33 +12,42 @@ class Cabinets extends Component {
     super(props);
     this.state = {
       cabinets: [],
-      isLoading: true
+      isLoading: true,
+      cabinetContents: []
     };
   }
 
   componentDidMount() {
-    //I repeat this part at every place the api makes a call
-    //I really need to simplify this using axios
-    const token = this.props.auth.token;
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `token ${token}`
-    };
-    API.get(`/cabinets/cabinets/`, {
-      headers: headers
-    }).then(res => {
+    cabinetObj().then(res => {
       this.setState({ cabinets: res.data.results });
       this.setState({ isLoading: false });
     });
   }
 
   onSelect = (selectedKeys, info) => {
+<<<<<<< HEAD:src/components/Dashboard/DashComponents/Cabinets.js
     // Catching the id of the cabinet contents to load
     console.log("selected", info.selectedNodes[0].props.id);
     this.props.history.push(
       `/cabinet-contents/${info.selectedNodes[0].props.id}`
     );
+=======
+    try {
+      docsInCabinet(info.selectedNodes[0].props.id).then(res => {
+        this.setState({
+          cabinetContents: res.data.results
+        })
+      })
+      this.props.dispatch(setCabinetID(info.selectedNodes[0].props.id))
+      this.props.history.push({
+        pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
+        state: this.state.cabinetContents
+      })
+    }
+    catch {
+      this.props.history.push('/')
+    }
+>>>>>>> c0a9425ea8813aaa30c6902b3d042750154b7a38:src/components/Dashboard/DashComponents/CabinetTree.js
   };
 
   render() {
