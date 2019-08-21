@@ -1,17 +1,22 @@
-import React from "react";
-import { Redirect, Route } from "react-router-dom";
-import MainLayout from '../Layout/MainLayout'
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import MainLayout from '../Layout/MainLayout';
 
-const state = JSON.parse(localStorage.getItem("state"));
+let isAuthenticated;
 
-const isAuthenticated = state.auth.isAuthenticated;
+try {
+  const state = JSON.parse(localStorage.getItem('state'));
+  isAuthenticated = state.auth.isAuthenticated;
+} catch {
+  isAuthenticated = false;
+}
 
 export const DashboardRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
       isAuthenticated ? (
-        <MainLayout >
+        <MainLayout>
           <Component {...props} />
         </MainLayout>
       ) : (
