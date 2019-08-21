@@ -1,19 +1,17 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { allReducers } from '../Reducers/';
-import { loadState, saveState }  from './localStorage';
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { allReducers } from "../Reducers/";
+import { loadState, saveState } from "./localStorage";
 
-const persistedState = loadState()
+const persistedState = loadState();
 
 const myMiddleware = [thunk];
 
 export const store = createStore(
   allReducers,
   persistedState,
-  compose(
-    applyMiddleware(...myMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeWithDevTools(applyMiddleware(...myMiddleware))
 );
 
 store.subscribe(() => {

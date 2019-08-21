@@ -1,19 +1,23 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import DashboardLayout from "../components/Dashboard/DashboardLayout";
+import AppLayout from "../Layout/Layout";
 
-const state = JSON.parse(localStorage.getItem("state"));
-
-const isAuthenticated = state.auth.isAuthenticated;
+let isAuthenticated;
+try {
+  const state = JSON.parse(localStorage.getItem("state"));
+  isAuthenticated = state.auth.isAuthenticated;
+} catch {
+  isAuthenticated = false;
+}
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
       isAuthenticated ? (
-        <DashboardLayout>
+        <AppLayout>
           <Component {...props} />
-        </DashboardLayout>
+        </AppLayout>
       ) : (
         <Redirect to="/login" />
       )

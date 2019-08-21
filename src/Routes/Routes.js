@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { PrivateRoute } from "../Routes/PrivateRoute";
 import Dashboard from "../components/Dashboard/Dashboard";
+import CabinetContents from "../components/Dashboard/DashComponents/Cabinets";
 import Login from "../components/Login/Login";
 import Logout from "../components/Login/Logout";
 
@@ -10,8 +11,16 @@ class routes extends Component {
     return (
       <Switch>
         <Route path="/login" component={Login} />
-        <PrivateRoute exact path="/" component={Dashboard} />
+        <Route exact path="/">
+          <Redirect to="/dashboard" />
+        </Route>
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/logout" component={Logout} />
+        <PrivateRoute
+          exact
+          path="/cabinet-contents/:id"
+          component={CabinetContents}
+        />
       </Switch>
     );
   }
