@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 import React, { Component } from "react";
 import { Tree } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { cabinetObj, docsInCabinet } from "../../../api/api";
+import { cabinetObj } from "../../../api/api";
 import { setCabinetID } from "../../../redux/Actions/cabinetActions";
-=======
-import React, { Component } from 'react';
-import { Tree } from 'antd';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { cabinetObj } from '../../../api/api';
-import { setCabinetID } from '../../../redux/Actions/cabinetActions';
->>>>>>> ecfc2176c0e87b733d7a1b18b4cf499835f4136c
 
 const { TreeNode } = Tree;
 
@@ -27,16 +18,16 @@ class Cabinets extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true })
-    this.fetchCabinetTree()
-    this.setState({ isLoading: false })
+    this.setState({ isLoading: true });
+    this.fetchCabinetTree();
+    this.setState({ isLoading: false });
   }
 
   fetchCabinetTree = () => {
     cabinetObj().then(res => {
       this.setState({ cabinets: res.data.results });
     });
-  }
+  };
 
   onSelect = (selectedKeys, info) => {
     try {
@@ -46,15 +37,12 @@ class Cabinets extends Component {
         state: this.state.cabinetContents
       });
     } catch {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
   };
 
   render() {
-    
     const { cabinets, isLoading } = this.state;
-
- 
 
     let cleanCabinets = [];
 
@@ -87,18 +75,16 @@ class Cabinets extends Component {
         <div>
           <h1>Loading...</h1>
         </div>
-      )
+      );
     } else {
-
-      
       return (
         <div>
-        <Tree showLine onSelect={this.onSelect}>
-          {renderTreeNodes(cleanCabinets)}
-        </Tree>
-      </div>
-    );
-  }
+          <Tree showLine onSelect={this.onSelect}>
+            {renderTreeNodes(cleanCabinets)}
+          </Tree>
+        </div>
+      );
+    }
   }
 }
 
