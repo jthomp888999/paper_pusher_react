@@ -3,10 +3,7 @@ import { Tree } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { cabinetObj } from '../../../api/api';
-import {
-  setCabinetID,
-  setCabinetObj
-} from '../../../redux/Actions/cabinetActions';
+import { setCabinetID } from '../../../redux/Actions/cabinetActions';
 
 const { TreeNode } = Tree;
 
@@ -15,15 +12,20 @@ class Cabinets extends Component {
     super(props);
     this.state = {
       cabinets: [],
-      isLoading: true,
+      isLoading: false,
       cabinetContents: []
     };
   }
 
-  async componentDidMount() {
-    await cabinetObj().then(res => {
+  componentDidMount() {
+    this.setState({ isLoading: true })
+    this.fetchCabinetTree()
+    this.setState({ isLoading: false })
+  }
+
+  fetchCabinetTree = () => {
+    cabinetObj().then(res => {
       this.setState({ cabinets: res.data.results });
-      this.setState({ isLoading: false });
     });
   }
 
@@ -40,7 +42,10 @@ class Cabinets extends Component {
   };
 
   render() {
+    
     const { cabinets, isLoading } = this.state;
+
+ 
 
     let cleanCabinets = [];
 
@@ -52,7 +57,6 @@ class Cabinets extends Component {
         }
         return cleanCabinets;
       });
-      this.props.dispatch(setCabinetObj(cleanCabinets));
     }
 
     const renderTreeNodes = data =>
@@ -69,13 +73,23 @@ class Cabinets extends Component {
         );
       });
 
-    return (
-      <div>
+    if (isLoading) {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      )
+    } else {
+
+      
+      return (
+        <div>
         <Tree showLine onSelect={this.onSelect}>
           {renderTreeNodes(cleanCabinets)}
         </Tree>
       </div>
     );
+  }
   }
 }
 
