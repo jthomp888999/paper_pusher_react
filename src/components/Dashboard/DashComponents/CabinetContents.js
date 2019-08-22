@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { docsInCabinet } from '../../../api/api';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { docsInCabinet } from "../../../api/api";
 
 class CabinetContents extends Component {
   constructor(props) {
@@ -9,15 +9,28 @@ class CabinetContents extends Component {
     this.state = {
       cabinetID: null,
       cabinetContents: [],
-      isLoading: true
+      isLoading: false
     };
   }
 
+  nextProp = this.props.match.params.id;
+  prevState = this.state.cabinetID;
+
+  static getDerivedStateFromProps(nextProp, prevState) {
+    if (nextProp !== prevState) {
+      return {
+        cabinetID: nextProp
+      };
+    }
+  }
+
   async componentDidMount() {
+    this.setState({ isLoading: true });
     this.setState({ cabinetID: this.props.match.params.id });
-    if (this.cabinetID) {
+    if (this.state.cabinetID) {
       await docsInCabinet(this.state.cabinetID).then(res => {
         this.setState({ cabinetContents: res.data.results });
+        this.setState({ isLoading: false });
       });
     }
   }

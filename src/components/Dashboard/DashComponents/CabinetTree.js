@@ -3,7 +3,6 @@ import { Tree } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { cabinetObj } from "../../../api/api";
-import { setCabinetID } from "../../../redux/Actions/cabinetActions";
 
 const { TreeNode } = Tree;
 
@@ -12,8 +11,7 @@ class Cabinets extends Component {
     super(props);
     this.state = {
       cabinets: [],
-      isLoading: false,
-      cabinetContents: []
+      isLoading: false
     };
   }
 
@@ -36,10 +34,8 @@ class Cabinets extends Component {
 
   onSelect = (selectedKeys, info) => {
     try {
-      this.props.dispatch(setCabinetID(info.selectedNodes[0].props.id));
       this.props.history.push({
-        pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
-        state: this.state.cabinetContents
+        pathname: `/cabinets/${info.selectedNodes[0].props.id}`
       });
     } catch {
       this.props.history.push("/");
