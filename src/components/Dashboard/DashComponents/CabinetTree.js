@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Tree } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { cabinetObj, docsInCabinet } from '../../../api/api';
-import { setCabinetID } from '../../../redux/Actions/cabinetActions';
+import { cabinetObj, docsInCabinet } from "../../../api/api";
+import { setCabinetID } from "../../../redux/Actions/cabinetActions";
 
 const { TreeNode } = Tree;
 
@@ -25,29 +25,20 @@ class Cabinets extends Component {
   }
 
   onSelect = (selectedKeys, info) => {
-<<<<<<< HEAD:src/components/Dashboard/DashComponents/Cabinets.js
-    // Catching the id of the cabinet contents to load
-    console.log("selected", info.selectedNodes[0].props.id);
-    this.props.history.push(
-      `/cabinet-contents/${info.selectedNodes[0].props.id}`
-    );
-=======
     try {
       docsInCabinet(info.selectedNodes[0].props.id).then(res => {
         this.setState({
           cabinetContents: res.data.results
-        })
-      })
-      this.props.dispatch(setCabinetID(info.selectedNodes[0].props.id))
+        });
+      });
+      this.props.dispatch(setCabinetID(info.selectedNodes[0].props.id));
       this.props.history.push({
         pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
         state: this.state.cabinetContents
-      })
+      });
+    } catch {
+      this.props.history.push("/");
     }
-    catch {
-      this.props.history.push('/')
-    }
->>>>>>> c0a9425ea8813aaa30c6902b3d042750154b7a38:src/components/Dashboard/DashComponents/CabinetTree.js
   };
 
   render() {
