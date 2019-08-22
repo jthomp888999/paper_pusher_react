@@ -24,9 +24,14 @@ class Cabinets extends Component {
   }
 
   fetchCabinetTree = () => {
-    cabinetObj().then(res => {
-      this.setState({ cabinets: res.data.results });
-    });
+    if (localStorage.getItem("cabinets")) {
+      this.setState({ cabinets: JSON.parse(localStorage.getItem("cabinets")) });
+    } else {
+      cabinetObj().then(res => {
+        this.setState({ cabinets: res.data.results });
+        localStorage.setItem("cabinets", JSON.stringify(this.state.cabinets));
+      });
+    }
   };
 
   onSelect = (selectedKeys, info) => {
