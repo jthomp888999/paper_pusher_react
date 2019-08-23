@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { docsInCabinet } from "../../../api/api";
 
 class CabinetContents extends Component {
@@ -46,9 +45,4 @@ class CabinetContents extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  cabinets: state.cabinets
-});
-
-export default connect(mapStateToProps)(CabinetContents);
+export default CabinetContents;
