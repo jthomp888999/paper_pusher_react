@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Tree } from "antd";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { cabinetObj } from "../../../api/api";
 
@@ -89,8 +88,4 @@ class Cabinets extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-export default withRouter(connect(mapStateToProps)(Cabinets));
+export default withRouter(Cabinets);
