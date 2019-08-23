@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { docsInCabinet } from "../../../api/api";
 
 class CabinetContents extends Component {
@@ -52,4 +51,4 @@ const mapStateToProps = state => ({
   cabinets: state.cabinets
 });
 
-export default withRouter(connect(mapStateToProps)(CabinetContents));
+export default connect(mapStateToProps)(CabinetContents);
