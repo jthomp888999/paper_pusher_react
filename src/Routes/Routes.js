@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import NotFound from '../components/NotFound/NotFound';
 import DashboardRoute from './DashboardRoute';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Login from '../components/Login/Login';
@@ -18,6 +19,7 @@ class routes extends Component {
           path="/cabinets/:id"
           component={CabinetContents}
         />
+        <Route component={NotFound} />
       </Switch>
     );
   }
