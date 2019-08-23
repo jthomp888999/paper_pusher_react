@@ -21,11 +21,9 @@ class CabinetContents extends Component {
   }
 
   getContents = id => {
-    console.log(id);
     this.setState({ isLoading: true });
     docsInCabinet(id).then(res => {
       this.setState({ cabinetContents: res.data.results });
-      console.log(this.state.cabinetContents);
     });
     this.setState({ isLoading: false });
   };
