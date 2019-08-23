@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Tree } from "antd";
-import { withRouter } from "react-router-dom";
-import { cabinetObj } from "../../../api/api";
+import React, { Component } from 'react';
+import { Tree } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { cabinetObj } from '../../../api/api';
 
 const { TreeNode } = Tree;
 
@@ -21,17 +21,17 @@ class Cabinets extends Component {
   }
 
   componentWillUnmount() {
-    localStorage.removeItem("cabinets");
+    localStorage.removeItem('cabinets');
   }
 
   fetchCabinetTree = () => {
-    if (localStorage.getItem("cabinets")) {
-      this.setState({ cabinets: JSON.parse(localStorage.getItem("cabinets")) });
+    if (localStorage.getItem('cabinets')) {
+      this.setState({ cabinets: JSON.parse(localStorage.getItem('cabinets')) });
     } else {
       cabinetObj().then(res => {
         console.log(res.data);
         this.setState({ cabinets: res.data.results });
-        localStorage.setItem("cabinets", JSON.stringify(this.state.cabinets));
+        localStorage.setItem('cabinets', JSON.stringify(this.state.cabinets));
       });
     }
   };
@@ -42,7 +42,7 @@ class Cabinets extends Component {
         pathname: `/cabinets/${info.selectedNodes[0].props.id}`
       });
     } catch {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   };
 
@@ -65,14 +65,12 @@ class Cabinets extends Component {
       data.map(item => {
         if (item.children) {
           return (
-            <TreeNode title={item.label} key={item.id} id={item.id}>
+            <TreeNode title={item.label} id={item.id}>
               {renderTreeNodes(item.children)}
             </TreeNode>
           );
         }
-        return (
-          <TreeNode item={item.label} {...item} key={item.id} id={item.id} />
-        );
+        return <TreeNode item={item.label} {...item} id={item.id} />;
       });
 
     if (isLoading) {
