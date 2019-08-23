@@ -20,11 +20,16 @@ class Cabinets extends Component {
     this.setState({ isLoading: false });
   }
 
+  componentWillUnmount() {
+    localStorage.removeItem("cabinets");
+  }
+
   fetchCabinetTree = () => {
     if (localStorage.getItem("cabinets")) {
       this.setState({ cabinets: JSON.parse(localStorage.getItem("cabinets")) });
     } else {
       cabinetObj().then(res => {
+        console.log(res.data);
         this.setState({ cabinets: res.data.results });
         localStorage.setItem("cabinets", JSON.stringify(this.state.cabinets));
       });
