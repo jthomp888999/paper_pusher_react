@@ -7,40 +7,36 @@ class CabinetContents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cabinetID: null,
       cabinetContents: [],
       isLoading: false
     };
   }
 
-  nextProp = this.props.match.params.id;
-  prevState = this.state.cabinetID;
-
-  static getDerivedStateFromProps(nextProp, prevState) {
-    if (nextProp !== prevState) {
-      return {
-        cabinetID: nextProp
-      };
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.getContents(this.props.match.params.id);
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getContents(this.props.match.params.id);
+  }
+
+  getContents = id => {
+    console.log(id);
     this.setState({ isLoading: true });
-    this.setState({ cabinetID: this.props.match.params.id });
-    if (this.state.cabinetID) {
-      await docsInCabinet(this.state.cabinetID).then(res => {
-        this.setState({ cabinetContents: res.data.results });
-        this.setState({ isLoading: false });
-      });
-    }
-  }
+    docsInCabinet(id).then(res => {
+      this.setState({ cabinetContents: res.data.results });
+      console.log(this.state.cabinetContents);
+    });
+    this.setState({ isLoading: false });
+  };
 
   render() {
-    const { cabinetContents, cabinetID } = this.state;
+    const { cabinetContents } = this.state;
     return (
       <div>
         <h4>CabinetContents</h4>
-        <h4>{cabinetID}</h4>
         <ul>
           {cabinetContents.map(item => (
             <li>{item.label}</li>
