@@ -1,27 +1,29 @@
-import React from "react";
-import { Redirect, Route } from "react-router-dom";
-import MainLayout from "../Layout/MainLayout";
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import MainLayout from '../Layout/MainLayout';
 
-let isAuthenticated;
-
-try {
-  const state = JSON.parse(localStorage.getItem("state"));
-  isAuthenticated = state.auth.isAuthenticated;
-} catch {
-  isAuthenticated = false;
-}
-
-export const DashboardRoute = ({ component: Component, ...rest }) => (
+const DashboardRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      isAuthenticated ? (
-        <MainLayout>
-          <Component {...props} />
-        </MainLayout>
-      ) : (
-        <Redirect to="/login" />
-      )
-    }
+    render={props => {
+      if (auth.isLoading) {
+        return <h1>Loading...</h1>;
+      } else if (!auth.isAuthenticated) {
+        return <Redirect to="/login" />;
+      } else {
+        return (
+          <MainLayout>
+            <Component {...props} />
+          </MainLayout>
+        );
+      }
+    }}
   />
 );
+
+const mapStatetoProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStatetoProps)(DashboardRoute);

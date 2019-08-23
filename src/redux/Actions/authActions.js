@@ -1,5 +1,11 @@
 import { setHeaders, tokenObtain, currentUser } from '../../api/api';
-import { SET_USERNAME, LOGOUT_USER, SET_TOKEN } from './types';
+import {
+  SET_USERNAME,
+  LOGOUT_USER,
+  SET_TOKEN,
+  USER_LOADING,
+  USER_LOADED
+} from './types';
 
 const getUsername = dispatch => {
   currentUser().then(res => {
@@ -8,9 +14,15 @@ const getUsername = dispatch => {
       payload: res.data.username
     });
   });
+  dispatch({
+    type: USER_LOADED
+  });
 };
 
 export const loginUser = user => dispatch => {
+  dispatch({
+    type: USER_LOADING
+  });
   tokenObtain(user)
     .then(res => {
       setHeaders(res.data.token);
