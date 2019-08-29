@@ -9,21 +9,26 @@ export var API = axios.create({
 });
 
 export const setHeaders = token => {
+  console.log('set header', token);
   API.defaults.headers.common['Authorization'] = `token ${token}`;
 };
 
 export const tokenObtain = user => {
-  return API.post('rest/auth/token/obtain/', user);
+  return API.post('auth/token/obtain/', user);
 };
 
 export const currentUser = () => {
-  return API.get('user_management/users/current/');
+  return API.get('users/current/');
 };
 
-export const cabinetObj = () => {
-  return API.get('cabinets/cabinets/');
+export const cabinetObj = (num) => {
+  if (num) {
+    return API.get(`cabinets/?page=${num}`)
+  } else {
+  return API.get('cabinets/');
+  }
 };
 
 export const docsInCabinet = id => {
-  return API.get(`cabinets/cabinets/${id}/documents`);
+  return API.get(`cabinets/${id}/documents`);
 };
