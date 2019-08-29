@@ -9,6 +9,8 @@ class Cabinets extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      fisrtList: [],
+      secondList: [],
       cabinets: [],
       isLoading: false
     };
@@ -17,6 +19,7 @@ class Cabinets extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
     this.fetchCabinetTree();
+
     this.setState({ isLoading: false });
   }
 
@@ -29,9 +32,19 @@ class Cabinets extends Component {
       this.setState({ cabinets: JSON.parse(localStorage.getItem('cabinets')) });
     } else {
       cabinetObj().then(res => {
-        console.log(res.data);
-        this.setState({ cabinets: res.data.results });
-        localStorage.setItem('cabinets', JSON.stringify(this.state.cabinets));
+        this.setState({ fisrtList: res.data.results });
+        if (res.data.next !== null) {
+          cabinetObj(2).then(res => {
+            this.setState({ secondList: res.data.results });
+            this.setState({
+              cabinets: [...this.state.fisrtList, ...this.state.secondList]
+            });
+            localStorage.setItem(
+              'cabinets',
+              JSON.stringify(this.state.cabinets)
+            );
+          });
+        }
       });
     }
   };
