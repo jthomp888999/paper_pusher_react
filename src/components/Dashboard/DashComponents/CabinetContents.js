@@ -1,5 +1,8 @@
-import React, { Component } from "react";
-import { docsInCabinet } from "../../../api/api";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Table } from 'antd';
+import { setHeaders } from '../../../api/api';
+import { docsInCabinet } from '../../../api/api';
 
 class CabinetContents extends Component {
   constructor(props) {
@@ -17,30 +20,53 @@ class CabinetContents extends Component {
   }
 
   componentDidMount() {
+    setHeaders(this.props.auth.token);
     this.getContents(this.props.match.params.id);
   }
 
+  // Return list of all documents in cabinet
   getContents = id => {
     this.setState({ isLoading: true });
     docsInCabinet(id).then(res => {
+      console.log(res.data);
       this.setState({ cabinetContents: res.data.results });
     });
     this.setState({ isLoading: false });
   };
 
   render() {
-    const { cabinetContents } = this.state;
-    return (
-      <div>
-        <h4>CabinetContents</h4>
-        <ul>
-          {cabinetContents.map(item => (
-            <li>{item.label}</li>
-          ))}
-        </ul>
-      </div>
-    );
+    const { cabinetContents, isLoading } = this.state;
+
+    const columns = [
+      {
+        title: 'Date Added',
+        dataIndex: 'date_added',
+        key: 'date_added'
+      },
+      {
+        title: 'Title',
+        dataIndex: 'label',
+        key: 'label'
+      }
+    ];
+    if (isLoading) {
+      return <>Loading...</>;
+    } else {
+      return (
+        <>
+          <Table
+            rowKey={Math.random}
+            columns={columns}
+            dataSource={cabinetContents}
+          />
+        </>
+      );
+    }
   }
 }
 
-export default CabinetContents;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(CabinetContents);
