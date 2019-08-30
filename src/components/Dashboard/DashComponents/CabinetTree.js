@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tree } from "antd";
+import { Tree, Empty } from "antd";
 import { withRouter } from "react-router-dom";
 import { cabinetObj } from "../../../api/api";
 
@@ -97,10 +97,10 @@ class Cabinets extends Component {
           <h1>Loading...</h1>
         </>
       );
-    } else if (cleanCabinets.length == 0) {
+    } else if (cleanCabinets.length === 0) {
       return (
         <>
-          <h1>Cabinets are empty</h1>
+          <Empty description={"Cabinets Empty"} />
         </>
       );
     } else {
