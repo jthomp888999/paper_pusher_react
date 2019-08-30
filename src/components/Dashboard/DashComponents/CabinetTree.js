@@ -3,7 +3,7 @@ import { Tree } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { cabinetObj } from '../../../api/api';
 
-const { TreeNode } = Tree;
+const { DirectoryTree, TreeNode } = Tree;
 
 class Cabinets extends Component {
   constructor(props) {
@@ -95,9 +95,9 @@ class Cabinets extends Component {
     } else {
       return (
         <div>
-          <Tree showLine onSelect={this.onSelect}>
+          <DirectoryTree onSelect={this.onSelect}>
             {renderTreeNodes(cleanCabinets)}
-          </Tree>
+          </DirectoryTree>
         </div>
       );
     }
