@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Table } from 'antd';
-import { setHeaders } from '../../../api/api';
-import { docsInCabinet } from '../../../api/api';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Table } from "antd";
+import { setHeaders } from "../../../api/api";
+import { docsInCabinet } from "../../../api/api";
 
 class CabinetContents extends Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class CabinetContents extends Component {
   getContents = id => {
     this.setState({ isLoading: true });
     docsInCabinet(id).then(res => {
-      console.log(res.data);
       this.setState({ cabinetContents: res.data.results });
     });
     this.setState({ isLoading: false });
@@ -39,14 +38,14 @@ class CabinetContents extends Component {
 
     const columns = [
       {
-        title: 'Date Added',
-        dataIndex: 'date_added',
-        key: 'date_added'
+        title: "Date Added",
+        dataIndex: "date_added",
+        key: "date_added"
       },
       {
-        title: 'Title',
-        dataIndex: 'label',
-        key: 'label'
+        title: "Title",
+        dataIndex: "label",
+        key: "label"
       }
     ];
     if (isLoading) {

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Tree } from 'antd';
-import { withRouter } from 'react-router-dom';
-import { cabinetObj } from '../../../api/api';
+import React, { Component } from "react";
+import { Tree } from "antd";
+import { withRouter } from "react-router-dom";
+import { cabinetObj } from "../../../api/api";
 
 const { DirectoryTree, TreeNode } = Tree;
 
@@ -23,13 +23,15 @@ class Cabinets extends Component {
     this.setState({ isLoading: false });
   }
 
+  // Clean up the localstorage
   componentWillUnmount() {
-    localStorage.removeItem('cabinets');
+    localStorage.removeItem("cabinets");
   }
 
+  // This is a WIP, will need to be a recursive function to handle more pages soon
   fetchCabinetTree = () => {
-    if (localStorage.getItem('cabinets')) {
-      this.setState({ cabinets: JSON.parse(localStorage.getItem('cabinets')) });
+    if (localStorage.getItem("cabinets")) {
+      this.setState({ cabinets: JSON.parse(localStorage.getItem("cabinets")) });
     } else {
       cabinetObj().then(res => {
         this.setState({ fisrtList: res.data.results });
@@ -40,7 +42,7 @@ class Cabinets extends Component {
               cabinets: [...this.state.fisrtList, ...this.state.secondList]
             });
             localStorage.setItem(
-              'cabinets',
+              "cabinets",
               JSON.stringify(this.state.cabinets)
             );
           });
@@ -49,13 +51,14 @@ class Cabinets extends Component {
     }
   };
 
+  // Load contents in cernter body, will reset root page if any errors occur
   onSelect = (selectedKeys, info) => {
     try {
       this.props.history.push({
         pathname: `/cabinets/${info.selectedNodes[0].props.id}`
       });
     } catch {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
   };
 
@@ -64,7 +67,7 @@ class Cabinets extends Component {
 
     let cleanCabinets = [];
 
-    //Must actually clean the data from the server to be actually nested
+    // Must actually clean the data from the server to be actually nested
     if (!isLoading) {
       cabinets.map(item => {
         if (item.children.length && item.parent === null) {
@@ -74,6 +77,7 @@ class Cabinets extends Component {
       });
     }
 
+    // Recursively build treenodes
     const renderTreeNodes = data =>
       data.map(item => {
         if (item.children) {
@@ -86,19 +90,26 @@ class Cabinets extends Component {
         return <TreeNode item={item.label} {...item} id={item.id} />;
       });
 
+    // Conditionally render the cabinet tree
     if (isLoading) {
       return (
-        <div>
+        <>
           <h1>Loading...</h1>
-        </div>
+        </>
+      );
+    } else if (cleanCabinets.length == 0) {
+      return (
+        <>
+          <h1>Cabinets are empty</h1>
+        </>
       );
     } else {
       return (
-        <div>
+        <>
           <DirectoryTree onSelect={this.onSelect}>
             {renderTreeNodes(cleanCabinets)}
           </DirectoryTree>
-        </div>
+        </>
       );
     }
   }
