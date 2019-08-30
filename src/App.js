@@ -1,11 +1,11 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./redux/store/store";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './redux/store/store';
+import { BrowserRouter } from 'react-router-dom';
 
-import Routes from "./Routes/Routes";
+import Routes from './Routes/Routes';
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -15,6 +15,6 @@ function App() {
       </BrowserRouter>
     </Provider>
   );
-}
+};
 
 export default App;
