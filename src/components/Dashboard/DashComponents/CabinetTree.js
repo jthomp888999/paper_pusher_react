@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Tree, Empty } from "antd";
-import { withRouter } from "react-router-dom";
-import { cabinetObj } from "../../../api/api";
+import React, { Component } from 'react';
+import { Tree, Empty } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { cabinetObj } from '../../../api/api';
 
 const { DirectoryTree, TreeNode } = Tree;
 
@@ -25,13 +25,13 @@ class Cabinets extends Component {
 
   // Clean up the localstorage
   componentWillUnmount() {
-    localStorage.removeItem("cabinets");
+    localStorage.removeItem('cabinets');
   }
 
   // This is a WIP, will need to be a recursive function to handle more pages soon
   fetchCabinetTree = () => {
-    if (localStorage.getItem("cabinets")) {
-      this.setState({ cabinets: JSON.parse(localStorage.getItem("cabinets")) });
+    if (localStorage.getItem('cabinets')) {
+      this.setState({ cabinets: JSON.parse(localStorage.getItem('cabinets')) });
     } else {
       cabinetObj().then(res => {
         this.setState({ fisrtList: res.data.results });
@@ -42,7 +42,7 @@ class Cabinets extends Component {
               cabinets: [...this.state.fisrtList, ...this.state.secondList]
             });
             localStorage.setItem(
-              "cabinets",
+              'cabinets',
               JSON.stringify(this.state.cabinets)
             );
           });
@@ -58,7 +58,7 @@ class Cabinets extends Component {
         pathname: `/cabinets/${info.selectedNodes[0].props.id}`
       });
     } catch {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   };
 
@@ -100,7 +100,7 @@ class Cabinets extends Component {
     } else if (cleanCabinets.length === 0) {
       return (
         <>
-          <Empty description={"Cabinets Empty"} />
+          <Empty description={'Cabinets Empty'} />
         </>
       );
     } else {
