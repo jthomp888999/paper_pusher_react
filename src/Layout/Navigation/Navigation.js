@@ -19,14 +19,9 @@ class Navigation extends Component {
     );
 
     return (
-      <Menu
-        mode="horizontal"
-        theme="dark"
-        style={{ lineHeight: '64px' }}>
-        <Menu.Item key="1" style={{ float: 'left', fontSize: "24px" }}>
-          <Link to="/">
-            paper_pusher
-          </Link>
+      <Menu mode="horizontal" theme="dark" style={{ lineHeight: '64px' }}>
+        <Menu.Item key="1" style={{ float: 'left', fontSize: '24px' }}>
+          <Link to="/">paper_pusher</Link>
         </Menu.Item>
         <Menu.Item style={{ float: 'right' }}>
           {isAuthenticated ? authLinks : noAuthLinks}
