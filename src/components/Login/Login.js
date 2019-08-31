@@ -27,8 +27,7 @@ class Login extends Component {
         <Card
           style={{ width: 300 }}
           title={'Login'}
-          extra={<Icon type="unlock" />}
-          >
+          extra={<Icon type="unlock" />}>
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               {getFieldDecorator('username', {
