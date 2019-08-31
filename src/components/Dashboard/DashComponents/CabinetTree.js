@@ -83,7 +83,7 @@ class Cabinets extends Component {
             </TreeNode>
           );
         }
-        return <TreeNode item={item.label} {...item} id={item.id} />;
+        return <TreeNode item={item.label} {...item} id={item.id} isLeaf />;
       });
 
     if (isLoading) {
@@ -95,7 +95,7 @@ class Cabinets extends Component {
     } else {
       return (
         <div>
-          <DirectoryTree onSelect={this.onSelect}>
+          <DirectoryTree onSelect={this.onSelect} expandAction="doubleClick">
             {renderTreeNodes(cleanCabinets)}
           </DirectoryTree>
         </div>
