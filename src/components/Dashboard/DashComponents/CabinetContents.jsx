@@ -4,13 +4,6 @@ import { connect } from 'react-redux';
 import { Table } from 'antd';
 import { setHeaders, docsInCabinet } from '../../../api/api';
 
-const {
-  auth: { token },
-  match: {
-    params: { id }
-  }
-} = this.props;
-
 class CabinetContents extends Component {
   constructor(props) {
     super(props);
