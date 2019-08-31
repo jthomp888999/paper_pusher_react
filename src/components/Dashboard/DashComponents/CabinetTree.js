@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tree, Empty } from 'antd';
+import { Tree, Empty, Spin } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { cabinetObj } from '../../../api/api';
 
@@ -92,17 +92,9 @@ class Cabinets extends Component {
 
     // Conditionally render the cabinet tree
     if (isLoading) {
-      return (
-        <>
-          <h1>Loading...</h1>
-        </>
-      );
+      return <Spin size="large" />;
     } else if (cleanCabinets.length === 0) {
-      return (
-        <>
-          <Empty description={'Cabinets Empty'} />
-        </>
-      );
+      return <Empty description={'Cabinets Empty'} />;
     } else {
       return (
         <>

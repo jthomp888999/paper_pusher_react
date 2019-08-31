@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Table } from 'antd';
+import { Table, Spin } from 'antd';
 import { setHeaders, docsInCabinet } from '../../../api/api';
 
 class CabinetContents extends Component {
@@ -49,7 +49,7 @@ class CabinetContents extends Component {
     ];
 
     if (isLoading) {
-      return <>Loading...</>;
+      return <Spin size="large" />;
     }
     return (
       <>
