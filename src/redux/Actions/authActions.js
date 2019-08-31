@@ -32,7 +32,14 @@ export const loginUser = user => dispatch => {
       });
       getUsername(dispatch);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (err.response === undefined) {
+        console.log('Offline or Server Down');
+      } else {
+        // Log Specific message from server
+        console.log(err.response.data.non_field_errors[0]);
+      }
+    });
 };
 
 export const logoutUser = () => dispatch => {
