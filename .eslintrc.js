@@ -3,9 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'airbnb',
-  ],
+  extends: ['airbnb'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -17,9 +15,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react', 'babel'],
+  parser: 'babel-eslint',
   rules: {
+    'react/forbid-prop-types': false,
   },
 };
