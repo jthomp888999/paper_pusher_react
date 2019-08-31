@@ -49,7 +49,7 @@ class CabinetContents extends Component {
     ];
 
     if (isLoading) {
-      return <Spin size="large" />;
+      return <Spin size='large' />;
     }
     return (
       <>
