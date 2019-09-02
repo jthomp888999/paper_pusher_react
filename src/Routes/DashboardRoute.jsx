@@ -1,29 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MainLayout from '../Layout/MainLayout';
 
 const DashboardRoute = ({ component: Component, auth, ...rest }) => (
   <Route
-    {...rest}
     render={props => {
       if (auth.isLoading) {
         return <h1>Loading...</h1>;
-      } else if (!auth.isAuthenticated) {
-        return <Redirect to="/login" />;
-      } else {
-        return (
-          <MainLayout>
-            <Component {...props} />
-          </MainLayout>
-        );
       }
+      if (!auth.isAuthenticated) {
+        return <Redirect to="/login" />;
+      }
+      return (
+        <MainLayout>
+          <Component {...props} />
+        </MainLayout>
+      );
     }}
   />
 );
 
+DashboardRoute.propTypes = {
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+  }).isRequired,
+  component: PropTypes.node.isRequired,
+};
+
 const mapStatetoProps = state => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStatetoProps)(DashboardRoute);

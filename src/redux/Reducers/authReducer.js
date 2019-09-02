@@ -3,45 +3,45 @@ import {
   SET_USERNAME,
   LOGOUT_USER,
   USER_LOADED,
-  USER_LOADING
+  USER_LOADING,
 } from '../Actions/types';
 
-const initial_state = {
+const initialState = {
   isAuthenticated: false,
   token: null,
   username: null,
-  isLoading: false
+  isLoading: false,
 };
 
-export default function(state = initial_state, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case USER_LOADING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
     case SET_TOKEN:
       return {
         ...state,
-        token: action.payload
+        token: action.payload,
       };
     case SET_USERNAME:
       return {
         ...state,
-        username: action.payload
+        username: action.payload,
       };
     case USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
       };
     case LOGOUT_USER:
       localStorage.clear();
       return {
         isAuthenticated: false,
         token: null,
-        username: null
+        username: null,
       };
     default:
       return state;

@@ -5,9 +5,7 @@ import { Layout } from 'antd';
 import Navigation from './Navigation/Navigation';
 import CabinetTree from '../components/Dashboard/DashComponents/CabinetTree';
 
-const {
-  Header, Content, Footer, Sider,
-} = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 
 const MainLayout = ({ children }) => (
   <Layout>
@@ -48,11 +46,7 @@ const MainLayout = ({ children }) => (
       </Layout>
     </Content>
     <Footer style={{ textAlign: 'center' }}>
-      Created by John Thompson
-      {' '}
-      <br />
-      {' '}
-Powered by Mayan EDMS
+      Created by John Thompson <br /> Powered by Mayan EDMS
     </Footer>
   </Layout>
 );
