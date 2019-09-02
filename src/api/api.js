@@ -1,16 +1,15 @@
 import axios from 'axios';
 
-export var API = axios.create({
+export const API = axios.create({
   baseURL: 'http://localhost:80/api/',
   headers: {
     'Content-Type': 'application/json',
-    Accept: 'application/json'
-  }
+    Accept: 'application/json',
+  },
 });
 
 export const setHeaders = token => {
-  console.log('set header', token);
-  API.defaults.headers.common['Authorization'] = `token ${token}`;
+  API.defaults.headers.common.Authorization = `token ${token}`;
 };
 
 export const tokenObtain = user => {
@@ -21,12 +20,11 @@ export const currentUser = () => {
   return API.get('users/current/');
 };
 
-export const cabinetObj = (num) => {
+export const cabinetObj = num => {
   if (num) {
-    return API.get(`cabinets/?page=${num}`)
-  } else {
-  return API.get('cabinets/');
+    return API.get(`cabinets/?page=${num}`);
   }
+  return API.get('cabinets/');
 };
 
 export const docsInCabinet = id => {
