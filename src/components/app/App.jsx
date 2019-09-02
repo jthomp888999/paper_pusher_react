@@ -2,8 +2,8 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from '../redux/store/store';
-import Routes from '../Routes/Routes';
+import store from '../redux/store';
+import Routes from '../Routes';
 
 const App = () => {
   return (

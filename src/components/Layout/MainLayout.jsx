@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
-import Navigation from './Navigation/Navigation';
-import CabinetTree from '../Cabinets/CabinetTree';
+import Navigation from '../Navigation';
+import CabinetTree from '../Cabinets';
 
 const { Header, Content, Footer, Sider } = Layout;
 
