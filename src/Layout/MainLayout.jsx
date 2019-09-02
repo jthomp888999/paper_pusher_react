@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import Navigation from './Navigation/Navigation';
 import CabinetTree from '../components/Dashboard/DashComponents/CabinetTree';
