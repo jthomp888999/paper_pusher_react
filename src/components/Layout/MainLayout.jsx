@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 import Navigation from './Navigation/Navigation';
-import CabinetTree from '../components/Dashboard/DashComponents/CabinetTree';
+import CabinetTree from '../Cabinets/CabinetTree';
 
 const { Header, Content, Footer, Sider } = Layout;
 
