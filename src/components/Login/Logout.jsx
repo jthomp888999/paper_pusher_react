@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { logoutUser } from '../../redux/Actions/authActions';
+import { logoutUser } from '../redux/Actions/authActions';
 
 const Logout = ({ dispatch }) => {
   return (

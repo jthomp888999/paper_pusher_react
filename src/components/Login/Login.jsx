@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Row, Card } from 'antd';
 import { Redirect } from 'react-router-dom';
 
-import { loginUser } from '../../redux/Actions/authActions';
+import { loginUser } from '../redux/Actions/authActions';
 
 class Login extends Component {
   handleSubmit = e => {
