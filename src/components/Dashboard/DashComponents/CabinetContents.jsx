@@ -9,18 +9,20 @@ class CabinetContents extends Component {
     super(props);
     this.state = {
       cabinetContents: [],
-      isLoading: false
+      isLoading: false,
     };
   }
 
   componentDidMount() {
-    setHeaders(this.props.auth.token);
-    this.getContents(this.props.match.params.id);
+    const { auth, match } = this.props;
+    setHeaders(auth.token);
+    this.getContents(match.params.id);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.getContents(this.props.match.params.id);
+    const { match } = this.props;
+    if (match.params.id !== prevProps.match.params.id) {
+      this.getContents(match.params.id);
     }
   }
 
@@ -39,41 +41,39 @@ class CabinetContents extends Component {
       {
         title: 'Date Added',
         dataIndex: 'date_added',
-        key: 'date_added'
+        key: 'date_added',
       },
       {
         title: 'Title',
         dataIndex: 'label',
-        key: 'label'
-      }
+        key: 'label',
+      },
     ];
 
     if (isLoading) {
-      return <Spin size='large' />;
+      return <Spin size="large" />;
     }
     return (
-      <>
-        <Table
-          rowKey={Math.random}
-          columns={columns}
-          dataSource={cabinetContents}
-        />
-      </>
+      <Table
+        rowKey={Math.random}
+        columns={columns}
+        dataSource={cabinetContents}
+      />
     );
   }
 }
 
 CabinetContents.propTypes = {
   auth: PropTypes.shape({
-    token: PropTypes.string.isRequired
-  }),
+    token: PropTypes.string.isRequired,
+  }).isRequired,
   match: PropTypes.shape({
-    params: PropTypes.object.isRequired
-  })
+    params: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(CabinetContents);

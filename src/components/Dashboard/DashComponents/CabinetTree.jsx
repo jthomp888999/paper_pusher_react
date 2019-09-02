@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Tree, Empty, Spin } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { cabinetObj } from '../../../api/api';
@@ -12,7 +13,7 @@ class Cabinets extends Component {
       fisrtList: [],
       secondList: [],
       cabinets: [],
-      isLoading: false
+      isLoading: false,
     };
   }
 
@@ -30,20 +31,23 @@ class Cabinets extends Component {
 
   // This is a WIP, will need to be a recursive function to handle more pages soon
   fetchCabinetTree = () => {
+    const { fisrtList, secondList, cabinets } = this.state;
     if (localStorage.getItem('cabinets')) {
-      this.setState({ cabinets: JSON.parse(localStorage.getItem('cabinets')) });
+      this.setState({
+        cabinets: JSON.parse(localStorage.getItem('cabinets')),
+      });
     } else {
       cabinetObj().then(res => {
         this.setState({ fisrtList: res.data.results });
         if (res.data.next !== null) {
-          cabinetObj(2).then(res => {
+          cabinetObj(2).then(() => {
             this.setState({ secondList: res.data.results });
             this.setState({
-              cabinets: [...this.state.fisrtList, ...this.state.secondList]
+              cabinets: [...fisrtList, ...secondList],
             });
             localStorage.setItem(
               'cabinets',
-              JSON.stringify(this.state.cabinets)
+              JSON.stringify(cabinets),
             );
           });
         }
@@ -53,19 +57,20 @@ class Cabinets extends Component {
 
   // Load contents in cernter body, will reset root page if any errors occur
   onSelect = (selectedKeys, info) => {
+    const { history } = this.props;
     try {
-      this.props.history.push({
-        pathname: `/cabinets/${info.selectedNodes[0].props.id}`
+      history.push({
+        pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
       });
     } catch {
-      this.props.history.push('/');
+      history.push('/');
     }
   };
 
   render() {
     const { cabinets, isLoading } = this.state;
 
-    let cleanCabinets = [];
+    const cleanCabinets = [];
 
     // Must actually clean the data from the server to be actually nested
     if (!isLoading) {
@@ -87,24 +92,30 @@ class Cabinets extends Component {
             </TreeNode>
           );
         }
-        return <TreeNode item={item.label} {...item} id={item.id} isLeaf />;
+        return <TreeNode item={item.label} id={item.id} isLeaf />;
       });
 
     // Conditionally render the cabinet tree
     if (isLoading) {
       return <Spin size="large" />;
-    } else if (cleanCabinets.length === 0) {
-      return <Empty description={'Cabinets Empty'} />;
-    } else {
-      return (
-        <>
-          <DirectoryTree onSelect={this.onSelect}>
-            {renderTreeNodes(cleanCabinets)}
-          </DirectoryTree>
-        </>
-      );
     }
+    if (cleanCabinets.length === 0) {
+      return <Empty description="Cabinets Empty" />;
+    }
+    return (
+      <>
+        <DirectoryTree onSelect={this.onSelect}>
+          {renderTreeNodes(cleanCabinets)}
+        </DirectoryTree>
+      </>
+    );
   }
 }
+
+Cabinets.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withRouter(Cabinets);

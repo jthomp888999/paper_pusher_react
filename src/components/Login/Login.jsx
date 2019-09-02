@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Row, Card } from 'antd';
 import { Redirect } from 'react-router-dom';
@@ -7,62 +8,77 @@ import { loginUser } from '../../redux/Actions/authActions';
 
 class Login extends Component {
   handleSubmit = e => {
+    const { form, dispatch } = this.props;
     e.preventDefault();
-    //Get username and password from forms
-    this.props.form.validateFields((err, user) => {
+    // Get username and password from forms
+    form.validateFields((err, user) => {
       if (!err) {
         // Send user to login action
-        this.props.dispatch(loginUser(user));
+        dispatch(loginUser(user));
       }
     });
   };
 
   render() {
-    if (this.props.isAuthenticated) {
+    const { isAuthenticated, form } = this.props;
+    if (isAuthenticated) {
       return <Redirect to="/" />;
     }
-    const { getFieldDecorator } = this.props.form;
     return (
       <Row type="flex" justify="space-around" align="middle">
         <Card
           style={{ width: 300 }}
-          title={'Login'}
-          extra={<Icon type="unlock" />}>
+          title="Login"
+          extra={<Icon type="unlock" />}
+        >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
-              {getFieldDecorator('username', {
+              {form.getFieldDecorator('username', {
                 rules: [
-                  { required: true, message: 'Please input your username!' }
-                ]
+                  {
+                    required: true,
+                    message: 'Please input your username!',
+                  },
+                ],
               })(
                 <Input
                   prefix={
-                    <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                    <Icon
+                      type="user"
+                      style={{ color: 'rgba(0,0,0,.25)' }}
+                    />
                   }
                   placeholder="Username"
-                />
+                />,
               )}
             </Form.Item>
             <Form.Item>
-              {getFieldDecorator('password', {
+              {form.getFieldDecorator('password', {
                 rules: [
-                  { required: true, message: 'Please input your Password!' }
-                ]
+                  {
+                    required: true,
+                    message: 'Please input your Password!',
+                  },
+                ],
               })(
                 <Input
                   prefix={
-                    <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                    <Icon
+                      type="lock"
+                      style={{ color: 'rgba(0,0,0,.25)' }}
+                    />
                   }
                   type="password"
                   placeholder="Password"
-                />
+                />,
               )}
             </Form.Item>
             <Button
               onClick={this.handleSubmit}
               type="primary"
               htmlType="submit"
-              className="login-form-button">
+              className="login-form-button"
+            >
               Log in
             </Button>
           </Form>
@@ -71,9 +87,17 @@ class Login extends Component {
     );
   }
 }
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  form: PropTypes.shape({
+    getFieldDecorator: PropTypes.func.isRequired,
+    validateFields: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 const WrappedLogin = Form.create({ name: 'normal_login' })(Login);
