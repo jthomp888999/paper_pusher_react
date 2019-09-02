@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tree, Empty, Spin } from 'antd';
@@ -10,7 +12,7 @@ class Cabinets extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fisrtList: [],
+      firstList: [],
       secondList: [],
       cabinets: [],
       isLoading: false,
@@ -31,23 +33,25 @@ class Cabinets extends Component {
 
   // This is a WIP, will need to be a recursive function to handle more pages soon
   fetchCabinetTree = () => {
-    const { fisrtList, secondList, cabinets } = this.state;
     if (localStorage.getItem('cabinets')) {
       this.setState({
         cabinets: JSON.parse(localStorage.getItem('cabinets')),
       });
     } else {
       cabinetObj().then(res => {
-        this.setState({ fisrtList: res.data.results });
+        this.setState({ firstList: res.data.results });
         if (res.data.next !== null) {
-          cabinetObj(2).then(() => {
-            this.setState({ secondList: res.data.results });
+          cabinetObj(2).then(res2 => {
+            this.setState({ secondList: res2.data.results });
             this.setState({
-              cabinets: [...fisrtList, ...secondList],
+              cabinets: [
+                ...this.state.firstList,
+                ...this.state.secondList,
+              ],
             });
             localStorage.setItem(
               'cabinets',
-              JSON.stringify(cabinets),
+              JSON.stringify(this.state.cabinets),
             );
           });
         }
@@ -61,6 +65,7 @@ class Cabinets extends Component {
     try {
       history.push({
         pathname: `/cabinets/${info.selectedNodes[0].props.id}`,
+        state: { id: info.selectedNodes[0].props.id },
       });
     } catch {
       history.push('/');

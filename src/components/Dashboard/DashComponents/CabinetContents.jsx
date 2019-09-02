@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
 import { setHeaders, docsInCabinet } from '../../../api/api';
@@ -14,15 +15,15 @@ class CabinetContents extends Component {
   }
 
   componentDidMount() {
-    const { auth, match } = this.props;
+    const { auth, location } = this.props;
     setHeaders(auth.token);
-    this.getContents(match.params.id);
+    this.getContents(location.state.id);
   }
 
   componentDidUpdate(prevProps) {
-    const { match } = this.props;
-    if (match.params.id !== prevProps.match.params.id) {
-      this.getContents(match.params.id);
+    const { location } = this.props;
+    if (location.state.id !== prevProps.location.state.id) {
+      this.getContents(location.state.id);
     }
   }
 
@@ -67,8 +68,8 @@ CabinetContents.propTypes = {
   auth: PropTypes.shape({
     token: PropTypes.string.isRequired,
   }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.object.isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.object,
   }).isRequired,
 };
 
@@ -76,4 +77,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(CabinetContents);
+export default withRouter(connect(mapStateToProps)(CabinetContents));
