@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { Tree, Empty, Spin } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { cabinetObj } from '../api/api';
+import { is } from 'immutable';
 
 const { DirectoryTree, TreeNode } = Tree;
 
 const CabinetTreeHooks = props => {
-  const { firstList, setFirst } = useState([]);
-  const { secondList, setSecond } = useState([]);
-  const { cabinets, setCabinets } = useState([]);
-  const { isLoading, setLoading } = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [firstList, setFirst] = useState([]);
+  const [secondList, setSecond] = useState([]);
+  const [cabinets, setCabinets] = useState([]);
 
   // This is a WIP, will need to be a recursive function to handle more pages soon
   const fetchCabinetTree = () => {
