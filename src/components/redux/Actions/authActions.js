@@ -34,7 +34,7 @@ export const loginUser = user => dispatch => {
     })
     .catch(err => {
       // Log Specific message from server
-      console.log(err.response.data.non_field_errors[0]);
+      console.log(err);
     });
 };
 
