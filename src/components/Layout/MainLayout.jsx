@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 import Navigation from '../Navigation/Navigation';
-import CabinetTree from '../Cabinets/CabinetTree';
+import CabinetTreeHooks from '../Cabinets/CabinetTreeHooks';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -22,7 +22,7 @@ const MainLayout = ({ children }) => (
             minHeight: '800px',
           }}
         >
-          <CabinetTree />
+          <CabinetTreeHooks />
         </Sider>
         <Content
           style={{

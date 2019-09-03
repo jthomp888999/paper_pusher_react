@@ -24,6 +24,7 @@ const CabinetTreeHooks = props => {
         if (res.data.next !== null) {
           cabinetObj(2).then(res2 => {
             setSecond({ secondList: res2.data.results });
+            console.log(secondList);
             setCabinets({
               cabinets: [...firstList, ...secondList],
             });
