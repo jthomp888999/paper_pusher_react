@@ -92,12 +92,19 @@ class Cabinets extends Component {
       data.map(item => {
         if (item.children) {
           return (
-            <TreeNode title={item.label} id={item.id}>
+            <TreeNode title={item.label} id={item.id} key={item.id}>
               {renderTreeNodes(item.children)}
             </TreeNode>
           );
         }
-        return <TreeNode item={item.label} id={item.id} isLeaf />;
+        return (
+          <TreeNode
+            isLeaf
+            item={item.label}
+            id={item.id}
+            key={item.id}
+          />
+        );
       });
 
     // Conditionally render the cabinet tree
