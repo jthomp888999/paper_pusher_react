@@ -33,12 +33,8 @@ export const loginUser = user => dispatch => {
       getUsername(dispatch);
     })
     .catch(err => {
-      if (err.response === undefined) {
-        console.log('Offline or Server Down');
-      } else {
-        // Log Specific message from server
-        console.log(err.response.data.non_field_errors[0]);
-      }
+      // Log Specific message from server
+      console.log(err.response.data.non_field_errors[0]);
     });
 };
 
