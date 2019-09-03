@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
@@ -8,6 +7,7 @@ import MainLayout from '../Layout/MainLayout';
 
 const DashboardRoute = ({ component: Component, auth, ...rest }) => (
   <Route
+    {...rest}
     render={props => {
       if (auth.isLoading) {
         return <h1>Loading...</h1>;
