@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
-import { setHeaders, docsInCabinet } from '../api';
+import { setHeaders, docsInCabinet } from '../api/api';
 
 class CabinetContents extends Component {
   constructor(props) {

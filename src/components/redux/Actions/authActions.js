@@ -1,4 +1,4 @@
-import { setHeaders, tokenObtain, currentUser } from '../../api';
+import { setHeaders, tokenObtain, currentUser } from '../../api/api';
 import {
   SET_USERNAME,
   LOGOUT_USER,

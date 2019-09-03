@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tree, Empty, Spin } from 'antd';
 import { withRouter } from 'react-router-dom';
-import { cabinetObj } from '../api';
+import { cabinetObj } from '../api/api';
 
 const CabinetTreeHooks = () => {
   const { firstList, setFirst } = useState([]);

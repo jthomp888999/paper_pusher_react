@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import MainLayout from '../Layout';
+import MainLayout from '../Layout/MainLayout';
 
 const DashboardRoute = ({ component: Component, auth, ...rest }) => (
   <Route

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import NotFound from '../NotFound';
+import NotFound from '../NotFound/NotFound';
 import DashboardRoute from './DashboardRoute';
-import Dashboard from '../Dashboard';
-import { Login, Logout } from '../auth';
-import CabinetContents from '../Cabinets';
+import Dashboard from '../Dashboard/Dashboard';
+import Login from '../auth/Login';
+import Logout from '../auth/Logout';
+import CabinetContents from '../Cabinets/CabinetContents';
 
 const routes = () => {
   return (
